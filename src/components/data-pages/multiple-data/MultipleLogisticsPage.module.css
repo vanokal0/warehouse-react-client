@@ -1,0 +1,51 @@
+.page-container {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr;
+  grid-template-rows: 1fr;
+  padding: 28px 32px 36px;
+  column-gap: 30px;
+}
+
+.lot-section {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  min-height: 640px;
+  max-height: calc(100vh - 136px);
+  overflow: hidden;
+  display: flex;
+}
+
+@media (max-width: 1180px) {
+  .page-container {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+
+  .lot-section,
+  .booking-section {
+    grid-column: 1;
+  }
+
+  .lot-section {
+    min-height: 420px;
+    max-height: 560px;
+  }
+
+  .booking-section {
+    grid-row: 2;
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-container {
+    padding: 20px 16px 28px;
+  }
+}
+
+.booking-section {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+}

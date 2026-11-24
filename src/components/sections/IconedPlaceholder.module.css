@@ -1,0 +1,12 @@
+.placeholder-container {
+  height: 100%;
+  padding: 20px;
+  border: 1px dashed var(--secondary-gray-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary-gray-color);
+  font-style: italic;
+}

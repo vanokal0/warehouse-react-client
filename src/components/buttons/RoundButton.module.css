@@ -1,0 +1,35 @@
+.control-button {
+  height: 40px;
+  width: 40px;
+
+  color: var(--secondary-blue-color);
+
+  background-color: #edf2f8;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-button:hover {
+  color: var(--text-dark-blue-color);
+  background-color: #e2eaf3;
+  transform: translateY(-1px);
+}
+
+.control-button:disabled {
+  color: var(--secondary-gray-color);
+  cursor: default;
+}
+
+.primary-red {
+  color: var(--primary-red-color);
+}
+
+.control-button svg {
+  height: 60%;
+  width: 60%;
+}

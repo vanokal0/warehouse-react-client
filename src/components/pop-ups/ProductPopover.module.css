@@ -1,0 +1,13 @@
+.popover-container {
+  position: fixed;
+
+  z-index: 9999;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 12px;
+  min-width: 260px;
+  max-width: 400px;
+  font-size: 16px;
+  pointer-events: none;
+}

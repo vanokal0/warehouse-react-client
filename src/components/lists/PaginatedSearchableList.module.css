@@ -1,0 +1,171 @@
+.list-container {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scrollable {
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-color: #c4cfdd transparent;
+  scrollbar-width: thin;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.list-container .list-header h3 {
+  font-size: 21px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.list-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+  align-items: center;
+}
+
+.list-layout li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-layout {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+.grid-layout:not([style]) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  min-width: 0;
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid var(--primary-border-color);
+  background: #fbfcfe;
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(90px, auto) 40px 40px;
+  gap: 7px;
+}
+
+.filter-controls select {
+  background-color: var(--primary-background-color);
+  border: 1px solid var(--primary-border-color);
+  padding: 5px 8px;
+  width: 100%;
+  min-height: 38px;
+  border-radius: 8px;
+}
+
+.filter-controls button {
+  background-color: var(--primary-background-color);
+  border: 1px solid var(--primary-border-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  cursor: pointer;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.sort-container {
+  grid-column: 3;
+}
+.toggle-sort-button {
+  grid-column: 4;
+}
+
+.sort-option {
+  display: block;
+  background: none;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-option:hover {
+  background-color: #f0f0f0;
+}
+
+.sort-option.active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.sort-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sort-menu button {
+  width: 100%;
+  height: 100%;
+}
+
+.sort-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 0.3rem;
+  z-index: 10;
+  max-height: 150px;
+  overflow-y: auto;
+  min-width: 150px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 560px) {
+  .filter-controls {
+    grid-template-columns: minmax(0, 1fr) 40px 40px;
+  }
+
+  .filter-controls select {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .sort-container {
+    grid-column: 2;
+  }
+
+  .toggle-sort-button {
+    grid-column: 3;
+  }
+
+  .grid-layout:not([style]) {
+    grid-template-columns: 1fr;
+  }
+}

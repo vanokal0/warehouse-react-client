@@ -1,0 +1,50 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 520px;
+  padding: 18px;
+  border: 1px solid var(--primary-border-color);
+  border-radius: 14px;
+  background: var(--primary-background-color);
+  box-shadow: var(--surface-shadow);
+}
+
+.container-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.container-header h3 {
+  font-size: 21px;
+  color: var(--text-dark-blue-color);
+}
+
+@media (max-width: 560px) {
+  .table-container {
+    padding: 14px;
+  }
+
+  .container-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.rowCreated {
+  background-color: #ffe6e6 !important; /* світло-червоний */
+}
+
+.rowStored {
+  background-color: #fff8cc !important; /* світло-жовтий */
+}
+
+.rowShipped {
+  background-color: #e6ffe6 !important; /* світло-зелений */
+}

@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  overflow-y: hidden;
+  min-height: 560px;
+  max-height: calc(100vh - 136px);
+}

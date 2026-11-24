@@ -1,0 +1,79 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--secondary-background-color);
+}
+
+.card {
+  width: min(100%, 480px);
+  padding: 36px;
+  border: 1px solid var(--primary-border-color);
+  border-radius: 18px;
+  background: var(--primary-background-color);
+  box-shadow: var(--surface-shadow);
+}
+
+.code {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: rgba(254, 92, 115, 0.12);
+  color: #c83d55;
+  font-weight: 700;
+}
+
+.eyebrow {
+  color: var(--primary-blue-color);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.card h1 {
+  margin-top: 4px;
+  color: var(--text-dark-blue-color);
+  font-size: 26px;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  margin-top: 10px;
+  color: var(--text-muted-color);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.actions button,
+.actions a {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.actions button {
+  background: var(--primary-blue-color);
+  color: white;
+}
+
+.actions a {
+  border: 1px solid var(--primary-border-color);
+  color: var(--text-dark-blue-color);
+  background: white;
+}

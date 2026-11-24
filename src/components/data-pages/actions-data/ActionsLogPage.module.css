@@ -1,0 +1,100 @@
+.page-container {
+  padding: 28px 32px 36px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.log-card {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--primary-border-color);
+  border-radius: 12px;
+  background-color: var(--primary-background-color);
+  box-shadow: 0 4px 14px rgba(52, 60, 106, 0.05);
+  overflow: hidden;
+}
+
+.left-bar {
+  width: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.log-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1rem;
+}
+
+.diff-section {
+  margin-top: 1rem;
+}
+
+.diff-section h5 {
+  margin: 0.5rem 0 0.2rem;
+}
+
+.diff-section ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.diff-section li {
+  list-style: disc;
+}
+
+.undo-button {
+  margin-top: 1rem;
+}
+
+.muted {
+  color: var(--text-muted-color);
+  font-size: 0.9rem;
+}
+
+.global-log-section {
+  max-height: calc(100vh - 136px);
+  display: flex;
+}
+
+.my-log-section {
+  max-height: calc(100vh - 136px);
+  display: flex;
+}
+
+@media (max-width: 1000px) {
+  .page-container {
+    grid-template-columns: 1fr;
+  }
+
+  .global-log-section,
+  .my-log-section {
+    max-height: 640px;
+  }
+}
+
+@media (max-width: 760px) {
+  .page-container {
+    padding: 20px 16px 28px;
+  }
+}

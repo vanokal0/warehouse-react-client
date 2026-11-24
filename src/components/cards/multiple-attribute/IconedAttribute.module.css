@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.container p {
+  color: var(--text-black-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container svg {
+  flex: 0 0 auto;
+  width: 19px;
+  height: 19px;
+}

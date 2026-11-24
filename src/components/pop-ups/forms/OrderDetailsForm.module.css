@@ -1,0 +1,132 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background-color: var(--primary-background-color);
+  padding: 15px 25px;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.attribute-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.attribute-container label {
+  grid-column: 1;
+}
+
+.attribute-container input {
+  grid-column: 2;
+  padding: 5px;
+}
+
+.error-border {
+  border: 1px solid var(--primary-red-color);
+}
+
+.button-container {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-addition-controls {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.product-list {
+  max-height: 245px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--primary-border-color);
+  padding: 5px 10px;
+}
+
+.productItem {
+  display: grid;
+  padding: 8px 5px;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.expansion-toggle-btn {
+  align-self: center;
+  justify-self: center;
+}
+
+.counter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  justify-self: center;
+  align-self: center;
+}
+
+.counter .counter-value {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter button {
+  height: 24px;
+  width: 24px;
+}
+
+.clickable-product-name {
+  cursor: pointer;
+  color: var(--primary-blue-color); /* або твій колір */
+  text-decoration: underline;
+}
+
+.attribute-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error {
+  padding-left: 5px;
+  color: var(--primary-red-color);
+}
+
+.delete-action-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0px;
+  align-items: center;
+}
+
+.delete-action-container button {
+  height: 30px;
+}
+
+.delete-action-container .button-container {
+  display: flex;
+  gap: 5px;
+}
