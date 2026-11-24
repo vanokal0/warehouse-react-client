@@ -26,14 +26,52 @@ type QueryModel = {
   sorts: { field: string; order: "asc" | "desc" }[];
 };
 
+type ExportType = "orders" | "lotBookings";
+
+const exportConfigs = {
+  orders: { csvFileName: "orders.csv", generatePdf: generatePdfFromOrders },
+  lotBookings: {
+    csvFileName: "lot_bookings.csv",
+    generatePdf: generatePdfFromBookings,
+  },
+};
+
 type EntityTableProps<T> = {
   title: string;
   dataUrl: string;
   columns: GridColDef[];
   pageSize?: number;
   idAccessor: (item: T) => string | number;
+  exportType?: ExportType;
   renderHeaderButtons?: () => React.ReactNode;
 };
+
+function buildQueryParams(
+  { page, pageSize, filters, sorts }: QueryModel,
+  options: { all?: boolean } = {}
+): URLSearchParams {
+  const params = new URLSearchParams();
+
+  if (options.all) {
+    params.append("all", "true");
+  } else {
+    params.append("page", page.toString());
+    params.append("pageSize", pageSize.toString());
+  }
+
+  filters.forEach(({ field, operator, value }) => {
+    params.append("filterField", field);
+    params.append("filterOperator", operator);
+    params.append("filterValue", value);
+  });
+
+  sorts.forEach(({ field, order }) => {
+    params.append("sortField", field);
+    params.append("sortOrder", order);
+  });
+
+  return params;
+}
 
 export default function EntityInteractiveTable<T>({
   title,
@@ -41,8 +79,11 @@ export default function EntityInteractiveTable<T>({
   columns,
   pageSize = 7,
   idAccessor,
+  exportType = "orders",
   renderHeaderButtons,
 }: EntityTableProps<T>) {
+  const exportConfig = exportConfigs[exportType];
+
   const [rows, setRows] = useState<T[]>([]);
   const [rowCount, setRowCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -93,21 +134,7 @@ export default function EntityInteractiveTable<T>({
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const params = new URLSearchParams({
-        page: queryModel.page.toString(),
-        pageSize: queryModel.pageSize.toString(),
-      });
-
-      queryModel.filters.forEach(({ field, operator, value }) => {
-        params.append("filterField", field);
-        params.append("filterOperator", operator);
-        params.append("filterValue", value);
-      });
-
-      queryModel.sorts.forEach(({ field, order }) => {
-        params.append("sortField", field);
-        params.append("sortOrder", order);
-      });
+      const params = buildQueryParams(queryModel);
 
       try {
         const response = await fetch(`${dataUrl}?${params}`);
@@ -132,61 +159,24 @@ export default function EntityInteractiveTable<T>({
     fetchData();
   }, [queryModel, dataUrl, idAccessor]);
 
-  const buildExportQuery = () => {
-    const params = new URLSearchParams();
-    params.append("all", "true");
-
-    queryModel.sorts.forEach(({ field, order }) => {
-      params.append("sortField", field);
-      params.append("sortOrder", order);
-    });
-
-    queryModel.filters.forEach(({ field, operator, value }) => {
-      params.append("filterField", field);
-      params.append("filterOperator", operator);
-      params.append("filterValue", value);
-    });
-
-    return params;
+  const fetchAllForExport = async () => {
+    const params = buildQueryParams(queryModel, { all: true });
+    const response = await fetch(`${dataUrl}?${params}`);
+    return response.json();
   };
 
   const handleExportAllToCsv = async () => {
-    const params = buildExportQuery();
-    const response = await fetch(`${dataUrl}?${params}`);
-    const data = await response.json();
+    const data = await fetchAllForExport();
 
     const csvContent = generateCsvFromRows(data.items);
-    downloadFile(
-      csvContent,
-      title.includes("Бронювання") ? "lot_bookings.csv" : "orders.csv",
-      "text/csv"
-    );
+    downloadFile(csvContent, exportConfig.csvFileName, "text/csv");
   };
 
   const handleExportAllToPdf = async () => {
-    const params = new URLSearchParams();
-    params.append("all", "true");
-
-    queryModel.sorts.forEach(({ field, order }) => {
-      params.append("sortField", field);
-      params.append("sortOrder", order);
-    });
-
-    queryModel.filters.forEach(({ field, operator, value }) => {
-      params.append("filterField", field);
-      params.append("filterOperator", operator);
-      params.append("filterValue", value);
-    });
-
-    const response = await fetch(`${dataUrl}?${params}`);
-    const data = await response.json();
+    const data = await fetchAllForExport();
 
     if (data.items?.length) {
-      if (title.includes("Бронювання")) {
-        generatePdfFromBookings(data.items);
-      } else {
-        generatePdfFromOrders(data.items);
-      }
+      exportConfig.generatePdf(data.items);
     }
   };
 

@@ -19,6 +19,8 @@ import { RootState } from "../../../store/store";
 import { createNewEntity, openModal } from "../../../store/slices/modalSlice";
 import IconedPlaceholder from "../../sections/IconedPlaceholder";
 
+const getLotBookingId = (booking: LotBookingData) => booking.number;
+
 export default function MultipleLogisticsPage() {
   const warehouseNumber = useSelector(
     (state: RootState) => state.auth.warehouseNumber
@@ -136,7 +138,8 @@ export default function MultipleLogisticsPage() {
               import.meta.env.VITE_BACKEND_API_URL
             }/lot-bookings/by-lot/${selectedLotNumber}`}
             columns={lotBookingColumns}
-            idAccessor={(item) => item.number}
+            idAccessor={getLotBookingId}
+            exportType="lotBookings"
             renderHeaderButtons={() => (
               <TextButton
                 textValue="+ Додати"

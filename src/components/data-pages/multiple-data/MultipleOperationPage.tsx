@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedOrder } from "../../../store/slices/orderLogisticsSlice";
 import { OrderData } from "../../../typing";
 import EntityInteractiveTable from "../../tables/EntityInteractiveTable";
-import { getOrderColumns } from "../../tables/orderColumns";
+import { getOrderColumns, getOrderId } from "../../tables/orderColumns";
 import styles from "./MultipleOperationPage.module.css";
 
 import ProductPopover from "../../pop-ups/ProductPopover";
@@ -29,7 +29,7 @@ export default function MultipleOperationPage() {
           title="Замовлення"
           dataUrl={`${import.meta.env.VITE_BACKEND_API_URL}/orders/paged`}
           columns={orderColumns}
-          idAccessor={(order) => order.number}
+          idAccessor={getOrderId}
           pageSize={11}
         />
       </section>

@@ -10,6 +10,8 @@ type OrderColumnsOptions = {
   extraColumns?: GridColDef<OrderData>[];
 };
 
+export const getOrderId = (order: OrderData) => order.number;
+
 export function getOrderColumns({
   onDetails,
   supplierFlex = 1.5,

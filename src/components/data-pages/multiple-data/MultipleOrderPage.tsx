@@ -2,7 +2,7 @@ import { OrderData, ProductData } from "../../../typing";
 import styles from "./MultipleOrderPage.module.css";
 import TextButton from "../../buttons/TextButton";
 import EntityInteractiveTable from "../../tables/EntityInteractiveTable";
-import { getOrderColumns } from "../../tables/orderColumns";
+import { getOrderColumns, getOrderId } from "../../tables/orderColumns";
 import { useSelector } from "react-redux";
 import ProductPopover from "../../pop-ups/ProductPopover";
 import { useEffect, useState } from "react";
@@ -47,7 +47,7 @@ export default function MultipleOrderPage() {
           key={refreshKey}
           dataUrl={`${import.meta.env.VITE_BACKEND_API_URL}/orders/paged`}
           columns={orderColumns}
-          idAccessor={(order) => order.number}
+          idAccessor={getOrderId}
           renderHeaderButtons={() => (
             <TextButton
               textValue="+ Додати"
