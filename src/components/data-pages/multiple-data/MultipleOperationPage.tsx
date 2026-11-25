@@ -25,7 +25,7 @@ export default function MultipleOperationPage() {
     <div className={styles["page-container"]}>
       <section className={styles["order-section"]}>
         <EntityInteractiveTable<OrderData>
-          key={refreshKey}
+          refreshToken={refreshKey}
           title="Замовлення"
           dataUrl={`${import.meta.env.VITE_BACKEND_API_URL}/orders/paged`}
           columns={orderColumns}

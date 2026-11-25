@@ -44,7 +44,7 @@ export default function MultipleOrderPage() {
         <EntityInteractiveTable<OrderData>
           title="Замовлення"
           pageSize={11}
-          key={refreshKey}
+          refreshToken={refreshKey}
           dataUrl={`${import.meta.env.VITE_BACKEND_API_URL}/orders/paged`}
           columns={orderColumns}
           idAccessor={getOrderId}

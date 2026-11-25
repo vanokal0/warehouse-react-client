@@ -43,6 +43,8 @@ type EntityTableProps<T> = {
   pageSize?: number;
   idAccessor: (item: T) => string | number;
   exportType?: ExportType;
+  /** Changing this value refetches the current page without resetting table state. */
+  refreshToken?: number;
   renderHeaderButtons?: () => React.ReactNode;
 };
 
@@ -80,6 +82,7 @@ export default function EntityInteractiveTable<T>({
   pageSize = 7,
   idAccessor,
   exportType = "orders",
+  refreshToken = 0,
   renderHeaderButtons,
 }: EntityTableProps<T>) {
   const exportConfig = exportConfigs[exportType];
@@ -157,7 +160,7 @@ export default function EntityInteractiveTable<T>({
     };
 
     fetchData();
-  }, [queryModel, dataUrl, idAccessor]);
+  }, [queryModel, dataUrl, idAccessor, refreshToken]);
 
   const fetchAllForExport = async () => {
     const params = buildQueryParams(queryModel, { all: true });

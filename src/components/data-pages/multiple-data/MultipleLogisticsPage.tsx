@@ -133,7 +133,7 @@ export default function MultipleLogisticsPage() {
         {selectedLotNumber ? (
           <EntityInteractiveTable<LotBookingData>
             title={`Бронювання лоту ${selectedLotNumber}`}
-            key={refreshKey}
+            refreshToken={refreshKey}
             dataUrl={`${
               import.meta.env.VITE_BACKEND_API_URL
             }/lot-bookings/by-lot/${selectedLotNumber}`}
