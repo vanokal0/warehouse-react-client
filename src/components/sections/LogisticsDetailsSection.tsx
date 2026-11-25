@@ -12,6 +12,7 @@ import OrderProductLogisticsCard from "../cards/OrderProductLogisticsCard";
 import PaginatedSearchableList from "../lists/PaginatedSearchableList";
 import IconedPlaceholder from "./IconedPlaceholder";
 import { ClipboardListIcon } from "lucide-react";
+import { fetchProductOperations } from "../../api/productOperations";
 
 export default function LogisticsDetailsSection() {
   const dispatch = useDispatch();
@@ -23,26 +24,21 @@ export default function LogisticsDetailsSection() {
     dispatch(toggleProductExpanded(productName));
 
     if (!placements[productName] && !shipments[productName]) {
-      const urlBase = import.meta.env.VITE_BACKEND_API_URL;
-      const encodedOrder = encodeURIComponent(selectedOrder!.number);
-      const encodedProduct = encodeURIComponent(productName);
+      try {
+        const operations = await fetchProductOperations(
+          selectedOrder!.number,
+          productName
+        );
 
-      const [placementsRes, shipmentsRes] = await Promise.all([
-        fetch(
-          `${urlBase}/product-placements/by-order-and-product?orderNumber=${encodedOrder}&productName=${encodedProduct}`
-        ),
-        fetch(
-          `${urlBase}/product-shipments/by-order-and-product?orderNumber=${encodedOrder}&productName=${encodedProduct}`
-        ),
-      ]);
-
-      const [placementsData, shipmentsData] = await Promise.all([
-        placementsRes.json(),
-        shipmentsRes.json(),
-      ]);
-
-      dispatch(setPlacements({ productId: productName, data: placementsData }));
-      dispatch(setShipments({ productId: productName, data: shipmentsData }));
+        dispatch(
+          setPlacements({ productId: productName, data: operations.placements })
+        );
+        dispatch(
+          setShipments({ productId: productName, data: operations.shipments })
+        );
+      } catch (error) {
+        console.error("Failed to fetch product operations:", error);
+      }
     }
   };
 

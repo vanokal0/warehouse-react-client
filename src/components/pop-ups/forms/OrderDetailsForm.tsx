@@ -32,6 +32,10 @@ import {
   viewProduct,
 } from "../../../store/slices/orderViewSlice";
 import { RootState } from "../../../store/store";
+import {
+  fetchProductOperations,
+  ProductOperations,
+} from "../../../api/productOperations";
 
 const validationSchema = yup.object().shape({
   cost: yup.number().required(),
@@ -116,10 +120,7 @@ export default function OrderDetailsForm({
 
   const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
   const [productOperations, setProductOperations] = useState<
-    Record<
-      string,
-      { placements: ProductPlacementData[]; shipments: ProductShipmentData[] }
-    >
+    Record<string, ProductOperations>
   >({});
 
   const handleToggleOperations = async (
@@ -132,31 +133,20 @@ export default function OrderDetailsForm({
     }
 
     if (!productOperations[productName]) {
-      const urlBase = import.meta.env.VITE_BACKEND_API_URL;
-      const encodedOrder = encodeURIComponent(orderNumber);
-      const encodedProduct = encodeURIComponent(productName);
+      try {
+        const operations = await fetchProductOperations(
+          orderNumber,
+          productName
+        );
 
-      const [placementsRes, shipmentsRes] = await Promise.all([
-        fetch(
-          `${urlBase}/product-placements/by-order-and-product?orderNumber=${encodedOrder}&productName=${encodedProduct}`
-        ),
-        fetch(
-          `${urlBase}/product-shipments/by-order-and-product?orderNumber=${encodedOrder}&productName=${encodedProduct}`
-        ),
-      ]);
-
-      const [placementsData, shipmentsData] = await Promise.all([
-        placementsRes.json(),
-        shipmentsRes.json(),
-      ]);
-
-      setProductOperations((prev) => ({
-        ...prev,
-        [productName]: {
-          placements: placementsData,
-          shipments: shipmentsData,
-        },
-      }));
+        setProductOperations((prev) => ({
+          ...prev,
+          [productName]: operations,
+        }));
+      } catch (error) {
+        console.error("Failed to fetch product operations:", error);
+        return;
+      }
     }
 
     setExpandedProduct(productName);
